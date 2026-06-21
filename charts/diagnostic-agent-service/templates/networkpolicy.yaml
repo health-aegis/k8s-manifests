@@ -1,4 +1,4 @@
-{{- if .Values.networkPolicy.enabled }}
+{{- if .Values.networkPolicy.enabled -}}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -15,6 +15,9 @@ spec:
     - Egress
   ingress:
     - from:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: api-gateway
         - podSelector:
             matchLabels:
               app.kubernetes.io/name: coordinator-agent
