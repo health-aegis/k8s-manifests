@@ -11,6 +11,22 @@ spec:
   rules:
     - http:
         paths:
+          # api-gateway owns these sub-routes — must be listed before /api/history
+          # so the longer prefix wins over the health-records-service catch-all.
+          - path: /api/history/documents
+            pathType: Prefix
+            backend:
+              service:
+                name: api-gateway-service
+                port:
+                  number: 5000
+          - path: /api/history/upload
+            pathType: Prefix
+            backend:
+              service:
+                name: api-gateway-service
+                port:
+                  number: 5000
           - path: /api/history
             pathType: Prefix
             backend:
