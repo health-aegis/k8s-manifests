@@ -5,7 +5,7 @@
 
 # ── Shared infrastructure (env-level templates) ────────────────────────
 workloadIdentity:
-  clientId: "ccd4d517-3358-48d2-9e99-75e3d8d0bec7"
+  clientId: "2ae07dc6-82dc-4b66-b0c1-c7bf9c974d88"
 
 keyVault:
   name: aegis-kv-test
