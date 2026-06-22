@@ -1,7 +1,7 @@
-replicaCount: 2
+﻿replicaCount: 2
 
 image:
-  acrLoginServer: aegisprodacr.azurecr.io
+  acrLoginServer: aegistestacr.azurecr.io
 
 hpa:
   enabled: true
@@ -12,3 +12,4 @@ hpa:
 
 env:
   NODE_ENV: production
+

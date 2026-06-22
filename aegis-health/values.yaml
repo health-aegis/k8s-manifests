@@ -1,4 +1,4 @@
-# ─── Aegis Health — Helm values ───────────────────────────────────────────────
+﻿# â”€â”€â”€ Aegis Health â€” Helm values â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 # Helmified version of the k8s/ manifests, targeting AKS with:
 #   - Azure Key Vault CSI secrets provider (Workload Identity)
 #   - Azure Container Registry images
@@ -6,10 +6,10 @@
 #   - In-cluster PostgreSQL; MongoDB provided externally by Cosmos DB (via KV secret)
 #
 # Two namespaces:
-#   aegis-dev  → develop branch, aegistestacr, minimal replicas, no HPA
-#   aegis-prod → main branch,    aegisprodacr, 2+ replicas,     HPA enabled
+#   aegis-dev  â†’ develop branch, aegistestacr, minimal replicas, no HPA
+#   aegis-prod â†’ main branch,    aegisprodacr, 2+ replicas,     HPA enabled
 #
-# Values marked "set at deploy time" come from Terraform outputs — pass with
+# Values marked "set at deploy time" come from Terraform outputs â€” pass with
 #   helm upgrade --install ... --set <key>=<value>
 
 global:
@@ -21,12 +21,12 @@ namespace:
   # Overridden per environment: aegis-dev (values-dev.yaml) / aegis-prod (values-prod.yaml)
   name: aegis-dev
 
-# ─── Azure Workload Identity ─────────────────────────────────────────────────
+# â”€â”€â”€ Azure Workload Identity â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 workloadIdentity:
   serviceAccountName: aegis-workload-identity
   clientId: "2867ba3d-6959-4bcb-8a45-e7b370b5bd97"
 
-# ─── Azure Key Vault (CSI Secrets Provider) ──────────────────────────────────
+# â”€â”€â”€ Azure Key Vault (CSI Secrets Provider) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 keyVault:
   name: aegis-kv-2026
   tenantId: "3076b773-f5d9-413e-9564-7deaa3d0d7b7"
@@ -54,7 +54,7 @@ secrets:
   - kvName: kv-appinsights-conn
     key: APPLICATIONINSIGHTS_CONNECTION_STRING
 
-# ─── Non-secret configuration (ConfigMap: aegis-config) ──────────────────────
+# â”€â”€â”€ Non-secret configuration (ConfigMap: aegis-config) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 config:
   PORT: "5000"
   HEALTH_RECORDS_SERVICE_URL: "http://health-records-service:5001"
@@ -69,7 +69,7 @@ config:
   LOG_LEVEL: "info"
   CORS_ORIGIN: "*"
 
-# ─── In-cluster PostgreSQL (imaging-service metadata) ────────────────────────
+# â”€â”€â”€ In-cluster PostgreSQL (imaging-service metadata) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 postgres:
   enabled: true
   image: postgres:15-alpine
@@ -82,13 +82,13 @@ postgres:
     requests: { cpu: "100m", memory: "256Mi" }
     limits: { cpu: "500m", memory: "512Mi" }
 
-# ─── Shared resource defaults for backend microservices ──────────────────────
+# â”€â”€â”€ Shared resource defaults for backend microservices â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 backendDefaults:
   resources:
     requests: { cpu: "100m", memory: "192Mi" }
     limits: { cpu: "500m", memory: "512Mi" }
 
-# ─── Backend microservices ───────────────────────────────────────────────────
+# â”€â”€â”€ Backend microservices â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 # runtime: node services expose /healthz; python/fastapi services expose /health
 services:
   - name: api-gateway
@@ -204,7 +204,7 @@ services:
       cpuUtilization: 70
       memoryUtilization: 80
 
-  # Background worker — no HTTP port; uses exec probe to verify the Node process is alive.
+  # Background worker â€” no HTTP port; uses exec probe to verify the Node process is alive.
   - name: notification-worker
     image: notification-worker
     replicas: 1
@@ -222,7 +222,7 @@ services:
       maxReplicas: 3
       cpuUtilization: 70
 
-# ─── React frontend (nginx static) ───────────────────────────────────────────
+# â”€â”€â”€ React frontend (nginx static) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 frontend:
   enabled: true
   name: client
@@ -240,7 +240,7 @@ frontend:
     maxReplicas: 6
     cpuUtilization: 60
 
-# ─── AGIC Ingress (Application Gateway Ingress Controller) ───────────────────
+# â”€â”€â”€ AGIC Ingress (Application Gateway Ingress Controller) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 ingress:
   enabled: true
   host: ageis-dev.b4n3xus.in
@@ -248,7 +248,7 @@ ingress:
     name: api-gateway-service
     port: 5000
 
-# ─── KGateway (Gateway API) ───────────────────────────────────────────────────
+# â”€â”€â”€ KGateway (Gateway API) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 gateway:
   enabled: false
   className: kgateway
@@ -257,3 +257,4 @@ gateway:
   apiBackend:
     name: api-gateway-service
     port: 5000
+

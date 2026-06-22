@@ -1,10 +1,10 @@
-# ──────────────────────────────────────────────────────────────────────
-# PROD environment values — aegis-prod namespace.
-# Key services run ≥ 2 replicas with HPA enabled.
-# Resources meet spec: CPU req ≥100m, limit ≤500m; mem req ≥128Mi, limit ≤512Mi.
-# ──────────────────────────────────────────────────────────────────────
+﻿# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# PROD environment values â€” aegis-prod namespace.
+# Key services run â‰¥ 2 replicas with HPA enabled.
+# Resources meet spec: CPU req â‰¥100m, limit â‰¤500m; mem req â‰¥128Mi, limit â‰¤512Mi.
+# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
-# ── Shared infrastructure ──────────────────────────────────────────────
+# â”€â”€ Shared infrastructure â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 workloadIdentity:
   clientId: "" # set after prod terraform apply
 keyVault:
@@ -45,11 +45,11 @@ config:
 ingress:
   enabled: true
   host: ageis-prod.b4n3xus.in
-# ── Sub-chart overrides ────────────────────────────────────────────────
+# â”€â”€ Sub-chart overrides â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 api-gateway:
   replicaCount: 2
   image:
-    acrLoginServer: aegisprodacr.azurecr.io
+    acrLoginServer: aegistestacr.azurecr.io
     tag: "latest"
   resources:
     requests:
@@ -69,7 +69,7 @@ api-gateway:
 health-records-service:
   replicaCount: 2
   image:
-    acrLoginServer: aegisprodacr.azurecr.io
+    acrLoginServer: aegistestacr.azurecr.io
     tag: "latest"
   resources:
     requests:
@@ -89,7 +89,7 @@ health-records-service:
 medication-service:
   replicaCount: 2
   image:
-    acrLoginServer: aegisprodacr.azurecr.io
+    acrLoginServer: aegistestacr.azurecr.io
     tag: "latest"
   resources:
     requests:
@@ -109,7 +109,7 @@ medication-service:
 ai-service:
   replicaCount: 1
   image:
-    acrLoginServer: aegisprodacr.azurecr.io
+    acrLoginServer: aegistestacr.azurecr.io
     tag: "latest"
   resources:
     requests:
@@ -129,7 +129,7 @@ ai-service:
 imaging-service:
   replicaCount: 1
   image:
-    acrLoginServer: aegisprodacr.azurecr.io
+    acrLoginServer: aegistestacr.azurecr.io
     tag: "latest"
   resources:
     requests:
@@ -149,7 +149,7 @@ imaging-service:
 diagnostic-agent-service:
   replicaCount: 1
   image:
-    acrLoginServer: aegisprodacr.azurecr.io
+    acrLoginServer: aegistestacr.azurecr.io
     tag: "latest"
   resources:
     requests:
@@ -169,7 +169,7 @@ diagnostic-agent-service:
 coordinator-agent:
   replicaCount: 1
   image:
-    acrLoginServer: aegisprodacr.azurecr.io
+    acrLoginServer: aegistestacr.azurecr.io
     tag: "latest"
   resources:
     requests:
@@ -189,7 +189,7 @@ coordinator-agent:
 image-analysis-agent:
   replicaCount: 1
   image:
-    acrLoginServer: aegisprodacr.azurecr.io
+    acrLoginServer: aegistestacr.azurecr.io
     tag: "latest"
   resources:
     requests:
@@ -209,7 +209,7 @@ image-analysis-agent:
 patient-history-agent:
   replicaCount: 1
   image:
-    acrLoginServer: aegisprodacr.azurecr.io
+    acrLoginServer: aegistestacr.azurecr.io
     tag: "latest"
   resources:
     requests:
@@ -229,7 +229,7 @@ patient-history-agent:
 notification-worker:
   replicaCount: 1
   image:
-    acrLoginServer: aegisprodacr.azurecr.io
+    acrLoginServer: aegistestacr.azurecr.io
     tag: "latest"
   resources:
     requests:
@@ -243,7 +243,7 @@ notification-worker:
 client:
   replicaCount: 2
   image:
-    acrLoginServer: aegisprodacr.azurecr.io
+    acrLoginServer: aegistestacr.azurecr.io
     tag: "latest"
   resources:
     requests:
@@ -268,3 +268,4 @@ postgres:
     limits:
       cpu: 500m
       memory: 512Mi
+

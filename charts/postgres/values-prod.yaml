@@ -1,4 +1,4 @@
-storage:
+﻿storage:
   storageClassName: managed-csi
   size: 20Gi
 
@@ -9,3 +9,4 @@ resources:
   limits:
     cpu: 500m
     memory: 512Mi
+

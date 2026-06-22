@@ -1,10 +1,11 @@
-replicaCount: 2
+﻿replicaCount: 2
 
 image:
-  acrLoginServer: aegisprodacr.azurecr.io
+  acrLoginServer: aegistestacr.azurecr.io
 
 hpa:
   enabled: true
   minReplicas: 2
   maxReplicas: 5
   cpuUtilization: 60
+

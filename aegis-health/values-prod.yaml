@@ -1,8 +1,8 @@
-global:
-  acrLoginServer: aegisprodacr.azurecr.io
+﻿global:
+  acrLoginServer: aegistestacr.azurecr.io
   imageTag: latest
 
-# Per-service image tags — patched by deploy.yml on every CI build.
+# Per-service image tags â€” patched by deploy.yml on every CI build.
 imageTags:
   api-gateway: "latest"
   health-records-service: "latest"
@@ -43,7 +43,7 @@ postgres:
     requests: { cpu: "250m", memory: "256Mi" }
     limits: { cpu: "500m", memory: "512Mi" }
 
-# ─── Prod service overrides: replicas ≥ 2 for key services, HPA enabled ──────
+# â”€â”€â”€ Prod service overrides: replicas â‰¥ 2 for key services, HPA enabled â”€â”€â”€â”€â”€â”€
 services:
   - name: api-gateway
     serviceName: api-gateway-service
@@ -188,3 +188,4 @@ frontend:
     minReplicas: 2
     maxReplicas: 6
     cpuUtilization: 60
+
