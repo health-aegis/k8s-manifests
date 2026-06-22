@@ -44,6 +44,7 @@ config:
   CORS_ORIGIN: "*"
 ingress:
   enabled: true
+  host: ageis-dev.b4n3xus.in
 # ── Sub-chart overrides ────────────────────────────────────────────────
 api-gateway:
   replicaCount: 1

@@ -6,8 +6,7 @@
 
 # ── Shared infrastructure ──────────────────────────────────────────────
 workloadIdentity:
-  clientId: ""  # set after prod terraform apply
-
+  clientId: "" # set after prod terraform apply
 keyVault:
   name: aegis-kv-prod
   tenantId: "3076b773-f5d9-413e-9564-7deaa3d0d7b7"
@@ -30,7 +29,6 @@ keyVault:
       key: AZURE_AI_KEY
     - kvName: kv-appinsights-conn
       key: APPLICATIONINSIGHTS_CONNECTION_STRING
-
 config:
   PORT: "5000"
   HEALTH_RECORDS_SERVICE_URL: "http://health-records-service:5001"
@@ -44,10 +42,9 @@ config:
   NODE_ENV: "production"
   LOG_LEVEL: "info"
   CORS_ORIGIN: "*"
-
 ingress:
   enabled: true
-
+  host: ageis-prod.b4n3xus.in
 # ── Sub-chart overrides ────────────────────────────────────────────────
 api-gateway:
   replicaCount: 2
@@ -69,7 +66,6 @@ api-gateway:
     memoryUtilization: 80
   env:
     NODE_ENV: production
-
 health-records-service:
   replicaCount: 2
   image:
@@ -90,7 +86,6 @@ health-records-service:
     memoryUtilization: 80
   env:
     NODE_ENV: production
-
 medication-service:
   replicaCount: 2
   image:
@@ -111,7 +106,6 @@ medication-service:
     memoryUtilization: 80
   env:
     NODE_ENV: production
-
 ai-service:
   replicaCount: 1
   image:
@@ -132,7 +126,6 @@ ai-service:
     memoryUtilization: 80
   env:
     NODE_ENV: production
-
 imaging-service:
   replicaCount: 1
   image:
@@ -153,7 +146,6 @@ imaging-service:
     memoryUtilization: 80
   env:
     NODE_ENV: production
-
 diagnostic-agent-service:
   replicaCount: 1
   image:
@@ -174,7 +166,6 @@ diagnostic-agent-service:
     memoryUtilization: 80
   env:
     NODE_ENV: production
-
 coordinator-agent:
   replicaCount: 1
   image:
@@ -195,7 +186,6 @@ coordinator-agent:
     memoryUtilization: 80
   env:
     NODE_ENV: production
-
 image-analysis-agent:
   replicaCount: 1
   image:
@@ -216,7 +206,6 @@ image-analysis-agent:
     memoryUtilization: 80
   env:
     NODE_ENV: production
-
 patient-history-agent:
   replicaCount: 1
   image:
@@ -237,7 +226,6 @@ patient-history-agent:
     memoryUtilization: 80
   env:
     NODE_ENV: production
-
 notification-worker:
   replicaCount: 1
   image:
@@ -252,7 +240,6 @@ notification-worker:
       memory: 256Mi
   hpa:
     enabled: false
-
 client:
   replicaCount: 2
   image:
@@ -270,7 +257,6 @@ client:
     minReplicas: 2
     maxReplicas: 6
     cpuUtilization: 60
-
 postgres:
   storage:
     storageClassName: managed-csi
