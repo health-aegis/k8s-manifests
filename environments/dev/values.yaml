@@ -144,7 +144,7 @@ coordinator-agent:
   replicaCount: 1
   image:
     acrLoginServer: aegistestacr.azurecr.io
-    tag: "sha-e0ad7d7"
+    tag: "sha-42ce315"
   resources:
     requests:
       cpu: 50m
