@@ -243,6 +243,7 @@ frontend:
 # ─── AGIC Ingress (Application Gateway Ingress Controller) ───────────────────
 ingress:
   enabled: true
+  host: dev.aegishealth.com
   apiBackend:
     name: api-gateway-service
     port: 5000
