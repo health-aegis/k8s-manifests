@@ -64,7 +64,7 @@ health-records-service:
   replicaCount: 1
   image:
     acrLoginServer: aegistestacr.azurecr.io
-    tag: "sha-c5d9671"
+    tag: "sha-886bbba"
   resources:
     requests:
       cpu: 50m
