@@ -1,11 +1,13 @@
 # ──────────────────────────────────────────────────────────────────────
-# DEV environment values — all sub-chart overrides in one file.
-# Keys match sub-chart names. CD pipeline patches <subchart>.image.tag.
+# DEV environment values — aegis-dev namespace.
+# Minimal replicas (1) and no HPA to reduce AKS cost in testing.
+# Resources meet minimums (≥100m CPU, ≥128Mi memory) at lower limits.
 # ──────────────────────────────────────────────────────────────────────
 
-# ── Shared infrastructure (env-level templates) ────────────────────────
+# ── Shared infrastructure ──────────────────────────────────────────────
 workloadIdentity:
   clientId: "2ae07dc6-82dc-4b66-b0c1-c7bf9c974d88"
+
 keyVault:
   name: aegis-kv-test
   tenantId: "3076b773-f5d9-413e-9564-7deaa3d0d7b7"
@@ -28,6 +30,7 @@ keyVault:
       key: AZURE_AI_KEY
     - kvName: kv-appinsights-conn
       key: APPLICATIONINSIGHTS_CONNECTION_STRING
+
 config:
   PORT: "5000"
   HEALTH_RECORDS_SERVICE_URL: "http://health-records-service:5001"
@@ -41,41 +44,45 @@ config:
   NODE_ENV: "development"
   LOG_LEVEL: "debug"
   CORS_ORIGIN: "*"
+
 ingress:
   enabled: true
+
 # ── Sub-chart overrides ────────────────────────────────────────────────
 api-gateway:
   replicaCount: 1
   image:
     acrLoginServer: aegistestacr.azurecr.io
-    tag: "sha-c0c1c16"
+    tag: "latest"
   resources:
     requests:
-      cpu: 30m
-      memory: 64Mi
+      cpu: 100m
+      memory: 192Mi
     limits:
-      cpu: 150m
-      memory: 256Mi
+      cpu: 300m
+      memory: 512Mi
   hpa:
     enabled: false
   env:
     NODE_ENV: development
+
 health-records-service:
   replicaCount: 1
   image:
     acrLoginServer: aegistestacr.azurecr.io
-    tag: "sha-886bbba"
+    tag: "latest"
   resources:
     requests:
-      cpu: 50m
-      memory: 96Mi
+      cpu: 100m
+      memory: 128Mi
     limits:
-      cpu: 250m
+      cpu: 300m
       memory: 256Mi
   hpa:
     enabled: false
   env:
     NODE_ENV: development
+
 medication-service:
   replicaCount: 1
   image:
@@ -83,15 +90,16 @@ medication-service:
     tag: "latest"
   resources:
     requests:
-      cpu: 50m
-      memory: 96Mi
+      cpu: 100m
+      memory: 128Mi
     limits:
-      cpu: 250m
+      cpu: 300m
       memory: 256Mi
   hpa:
     enabled: false
   env:
     NODE_ENV: development
+
 ai-service:
   replicaCount: 1
   image:
@@ -99,15 +107,16 @@ ai-service:
     tag: "latest"
   resources:
     requests:
-      cpu: 50m
-      memory: 96Mi
+      cpu: 100m
+      memory: 192Mi
     limits:
-      cpu: 250m
-      memory: 256Mi
+      cpu: 300m
+      memory: 512Mi
   hpa:
     enabled: false
   env:
     NODE_ENV: development
+
 imaging-service:
   replicaCount: 1
   image:
@@ -115,47 +124,50 @@ imaging-service:
     tag: "latest"
   resources:
     requests:
-      cpu: 50m
-      memory: 96Mi
+      cpu: 100m
+      memory: 192Mi
     limits:
-      cpu: 250m
-      memory: 256Mi
+      cpu: 300m
+      memory: 512Mi
   hpa:
     enabled: false
   env:
     NODE_ENV: development
+
 diagnostic-agent-service:
   replicaCount: 1
   image:
     acrLoginServer: aegistestacr.azurecr.io
-    tag: "sha-89dc093"
+    tag: "latest"
   resources:
     requests:
-      cpu: 50m
-      memory: 96Mi
+      cpu: 100m
+      memory: 192Mi
     limits:
-      cpu: 250m
-      memory: 256Mi
+      cpu: 300m
+      memory: 512Mi
   hpa:
     enabled: false
   env:
     NODE_ENV: development
+
 coordinator-agent:
   replicaCount: 1
   image:
     acrLoginServer: aegistestacr.azurecr.io
-    tag: "sha-8627d35"
+    tag: "latest"
   resources:
     requests:
-      cpu: 50m
-      memory: 96Mi
+      cpu: 100m
+      memory: 192Mi
     limits:
-      cpu: 250m
-      memory: 256Mi
+      cpu: 300m
+      memory: 512Mi
   hpa:
     enabled: false
   env:
     NODE_ENV: development
+
 image-analysis-agent:
   replicaCount: 1
   image:
@@ -163,15 +175,16 @@ image-analysis-agent:
     tag: "latest"
   resources:
     requests:
-      cpu: 50m
-      memory: 96Mi
+      cpu: 100m
+      memory: 192Mi
     limits:
-      cpu: 250m
-      memory: 256Mi
+      cpu: 300m
+      memory: 512Mi
   hpa:
     enabled: false
   env:
     NODE_ENV: development
+
 patient-history-agent:
   replicaCount: 1
   image:
@@ -179,15 +192,16 @@ patient-history-agent:
     tag: "latest"
   resources:
     requests:
-      cpu: 50m
-      memory: 96Mi
+      cpu: 100m
+      memory: 192Mi
     limits:
-      cpu: 250m
-      memory: 256Mi
+      cpu: 300m
+      memory: 512Mi
   hpa:
     enabled: false
   env:
     NODE_ENV: development
+
 notification-worker:
   replicaCount: 1
   image:
@@ -195,27 +209,29 @@ notification-worker:
     tag: "latest"
   resources:
     requests:
-      cpu: 30m
-      memory: 64Mi
-    limits:
-      cpu: 150m
+      cpu: 100m
       memory: 128Mi
+    limits:
+      cpu: 300m
+      memory: 256Mi
   hpa:
     enabled: false
+
 client:
   replicaCount: 1
   image:
     acrLoginServer: aegistestacr.azurecr.io
-    tag: "sha-f44769b"
+    tag: "latest"
   resources:
     requests:
-      cpu: 10m
-      memory: 32Mi
+      cpu: 100m
+      memory: 128Mi
     limits:
-      cpu: 50m
-      memory: 64Mi
+      cpu: 300m
+      memory: 256Mi
   hpa:
     enabled: false
+
 postgres:
   storage:
     storageClassName: managed-csi
