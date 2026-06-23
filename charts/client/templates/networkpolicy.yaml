@@ -20,7 +20,7 @@ spec:
             cidr: {{ .Values.networkPolicy.appGatewaySubnetCidr | default "10.1.30.0/24" }}
       ports:
         - protocol: TCP
-          port: 8080
+          port: 80
   egress:
     - to:
         - podSelector:
