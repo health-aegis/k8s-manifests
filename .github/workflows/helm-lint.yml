@@ -1,3 +1,15 @@
+# ---------------------------------------------------------------------------
+# Helm Chart Validation Pipeline
+#
+# Runs on every push and PR to main. No Azure credentials needed —
+# helm lint and helm template run entirely locally.
+#
+# What it checks:
+#   lint      → YAML syntax, required fields, schema violations per chart
+#   template  → renders each chart with dev values to catch template errors
+#   diff      → on PRs, posts a summary of which charts changed
+# ---------------------------------------------------------------------------
+
 name: Helm Chart Validation
 
 on:
