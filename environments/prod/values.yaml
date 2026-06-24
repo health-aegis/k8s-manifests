@@ -87,7 +87,7 @@ medication-service:
   replicaCount: 2
   image:
     acrLoginServer: aegistestacr.azurecr.io
-    tag: "v0.2.7"
+    tag: "v0.2.14"
   resources:
     requests:
       cpu: 100m
