@@ -167,7 +167,7 @@ coordinator-agent:
   replicaCount: 1
   image:
     acrLoginServer: aegistestacr.azurecr.io
-    tag: "v0.2.9"
+    tag: "v0.2.10"
   resources:
     requests:
       cpu: 100m
