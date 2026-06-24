@@ -227,7 +227,7 @@ notification-worker:
   replicaCount: 1
   image:
     acrLoginServer: aegistestacr.azurecr.io
-    tag: "v0.1.9"
+    tag: "v0.2.2"
   resources:
     requests:
       cpu: 100m
