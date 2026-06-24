@@ -47,7 +47,7 @@ api-gateway:
   replicaCount: 2
   image:
     acrLoginServer: aegistestacr.azurecr.io
-    tag: "v0.2.2"
+    tag: "v0.2.7"
   resources:
     requests:
       cpu: 200m
