@@ -175,7 +175,7 @@ patient-history-agent:
   replicaCount: 1
   image:
     acrLoginServer: aegistestacr.azurecr.io
-    tag: "sha-d9c1e2a"
+    tag: "sha-77cc515"
   resources:
     requests:
       cpu: 100m
