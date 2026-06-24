@@ -1,7 +1,7 @@
 replicaCount: 1
 image:
   acrLoginServer: aegistestacr.azurecr.io
-  tag: "sha-766082c"
+  tag: "v0.2.1"
 resources:
   requests:
     cpu: 30m
