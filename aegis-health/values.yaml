@@ -1,32 +1,15 @@
-﻿# â”€â”€â”€ Aegis Health â€” Helm values â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-# Helmified version of the k8s/ manifests, targeting AKS with:
-#   - Azure Key Vault CSI secrets provider (Workload Identity)
-#   - Azure Container Registry images
-#   - AGIC (Application Gateway Ingress Controller) for external access
-#   - In-cluster PostgreSQL; MongoDB provided externally by Cosmos DB (via KV secret)
-#
-# Two namespaces:
-#   aegis-dev  â†’ develop branch, aegistestacr, minimal replicas, no HPA
-#   aegis-prod â†’ main branch,    aegisprodacr, 2+ replicas,     HPA enabled
-#
-# Values marked "set at deploy time" come from Terraform outputs â€” pass with
-#   helm upgrade --install ... --set <key>=<value>
-
-global:
+﻿global:
   acrLoginServer: aegisacraswin.azurecr.io
   imageTag: latest
   imagePullPolicy: Always
 
 namespace:
-  # Overridden per environment: aegis-dev (values-dev.yaml) / aegis-prod (values-prod.yaml)
   name: aegis-dev
 
-# â”€â”€â”€ Azure Workload Identity â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 workloadIdentity:
   serviceAccountName: aegis-workload-identity
-  clientId: "2867ba3d-6959-4bcb-8a45-e7b370b5bd97"
+  clientId: “2867ba3d-6959-4bcb-8a45-e7b370b5bd97”
 
-# â”€â”€â”€ Azure Key Vault (CSI Secrets Provider) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 keyVault:
   name: aegis-kv-2026
   tenantId: "3076b773-f5d9-413e-9564-7deaa3d0d7b7"
@@ -54,7 +37,6 @@ secrets:
   - kvName: kv-appinsights-conn
     key: APPLICATIONINSIGHTS_CONNECTION_STRING
 
-# â”€â”€â”€ Non-secret configuration (ConfigMap: aegis-config) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 config:
   PORT: "5000"
   HEALTH_RECORDS_SERVICE_URL: "http://health-records-service:5001"
@@ -67,9 +49,8 @@ config:
   PATIENT_HISTORY_AGENT_URL: "http://patient-history-agent:8002"
   NODE_ENV: "production"
   LOG_LEVEL: "info"
-  CORS_ORIGIN: "*"
+  CORS_ORIGIN: “*”
 
-# â”€â”€â”€ In-cluster PostgreSQL (imaging-service metadata) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 postgres:
   enabled: true
   image: postgres:15-alpine
@@ -80,16 +61,14 @@ postgres:
   storageSize: 5Gi
   resources:
     requests: { cpu: "100m", memory: "256Mi" }
-    limits: { cpu: "500m", memory: "512Mi" }
+    limits: { cpu: “500m”, memory: “512Mi” }
 
-# â”€â”€â”€ Shared resource defaults for backend microservices â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 backendDefaults:
   resources:
     requests: { cpu: "100m", memory: "192Mi" }
-    limits: { cpu: "500m", memory: "512Mi" }
+    limits: { cpu: “500m”, memory: “512Mi” }
 
-# â”€â”€â”€ Backend microservices â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-# runtime: node services expose /healthz; python/fastapi services expose /health
+# node services expose /healthz; python/fastapi services expose /health
 services:
   - name: api-gateway
     serviceName: api-gateway-service
@@ -204,7 +183,7 @@ services:
       cpuUtilization: 70
       memoryUtilization: 80
 
-  # Background worker â€” no HTTP port; uses exec probe to verify the Node process is alive.
+  # no HTTP port; exec probe checks process is alive
   - name: notification-worker
     image: notification-worker
     replicas: 1
@@ -222,7 +201,6 @@ services:
       maxReplicas: 3
       cpuUtilization: 70
 
-# â”€â”€â”€ React frontend (nginx static) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 frontend:
   enabled: true
   name: client
@@ -232,15 +210,14 @@ frontend:
   replicas: 1
   healthPath: /healthz
   resources:
-    requests: { cpu: "100m", memory: "128Mi" }
-    limits: { cpu: "300m", memory: "256Mi" }
+    requests: { cpu: “100m”, memory: “128Mi” }
+    limits: { cpu: “300m”, memory: “256Mi” }
   hpa:
     enabled: false
     minReplicas: 2
     maxReplicas: 6
     cpuUtilization: 60
 
-# â”€â”€â”€ AGIC Ingress (Application Gateway Ingress Controller) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 ingress:
   enabled: true
   host: ageis-dev.b4n3xus.in
@@ -248,7 +225,6 @@ ingress:
     name: api-gateway-service
     port: 5000
 
-# â”€â”€â”€ KGateway (Gateway API) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 gateway:
   enabled: false
   className: kgateway

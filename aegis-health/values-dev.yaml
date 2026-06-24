@@ -2,8 +2,7 @@ global:
   acrLoginServer: aegistestacr.azurecr.io
   imageTag: latest
 
-# Per-service image tags — patched by deploy.yml on every CI build.
-# Falls back to global.imageTag when a key is absent.
+# per-service tags patched by deploy.yml on each CI build
 imageTags:
   api-gateway: "latest"
   health-records-service: "latest"

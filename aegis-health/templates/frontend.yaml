@@ -1,5 +1,4 @@
 {{- if .Values.frontend.enabled }}
-# ─── Client nginx config (serves static React; Gateway handles /api/*) ────────
 apiVersion: v1
 kind: ConfigMap
 metadata:

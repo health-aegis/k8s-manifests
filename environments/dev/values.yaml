@@ -1,10 +1,3 @@
-# ──────────────────────────────────────────────────────────────────────
-# DEV environment values — aegis-dev namespace.
-# Minimal replicas (1) and no HPA to reduce AKS cost in testing.
-# Resources meet minimums (≥100m CPU, ≥128Mi memory) at lower limits.
-# ──────────────────────────────────────────────────────────────────────
-
-# ── Shared infrastructure ──────────────────────────────────────────────
 workloadIdentity:
   clientId: "2ae07dc6-82dc-4b66-b0c1-c7bf9c974d88"
 keyVault:
@@ -50,7 +43,6 @@ config:
 ingress:
   enabled: true
   host: ageis-dev.b4n3xus.in
-# ── Sub-chart overrides ────────────────────────────────────────────────
 api-gateway:
   replicaCount: 1
   image:

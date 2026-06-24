@@ -1,7 +1,3 @@
-# ─── Backend microservices ────────────────────────────────────────────────────
-# One Rollout (+ Service unless worker) per entry in .Values.services.
-# imageTags.<name> is patched per-service by deploy.yml on each CI push;
-# falls back to global.imageTag ("latest") if a per-service entry is absent.
 {{- $root := . -}}
 {{- range .Values.services }}
 {{- $svcName  := .serviceName | default .name }}

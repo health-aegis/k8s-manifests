@@ -2,7 +2,7 @@
   acrLoginServer: aegistestacr.azurecr.io
   imageTag: latest
 
-# Per-service image tags â€” patched by deploy.yml on every CI build.
+# per-service tags patched by deploy.yml on each CI build
 imageTags:
   api-gateway: "latest"
   health-records-service: "latest"
@@ -43,7 +43,6 @@ postgres:
     requests: { cpu: "250m", memory: "256Mi" }
     limits: { cpu: "500m", memory: "512Mi" }
 
-# â”€â”€â”€ Prod service overrides: replicas â‰¥ 2 for key services, HPA enabled â”€â”€â”€â”€â”€â”€
 services:
   - name: api-gateway
     serviceName: api-gateway-service

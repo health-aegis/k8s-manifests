@@ -1,5 +1,4 @@
 {{- if .Values.postgres.enabled }}
-# ─── In-cluster PostgreSQL (imaging-service metadata store) ────────────────────
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -20,8 +19,6 @@ spec:
         app: postgres
     spec:
       serviceAccountName: {{ .Values.workloadIdentity.serviceAccountName }}
-      # initContainer mounts the CSI volume first so the synced K8s Secret
-      # (containing POSTGRES_PASSWORD) exists before the postgres container starts.
       initContainers:
         - name: secret-sync-init
           image: busybox:1.36

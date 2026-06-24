@@ -1,6 +1,4 @@
 {{- if .Values.gateway.enabled }}
-# ─── KGateway (Gateway API) — edge entrypoint ─────────────────────────────────
-# Creates an Azure LoadBalancer. /api -> api-gateway, /* -> client (SPA).
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
