@@ -111,7 +111,7 @@ imaging-service:
   replicaCount: 1
   image:
     acrLoginServer: aegistestacr.azurecr.io
-    tag: "latest"
+    tag: "sha-c642e1d"
   resources:
     requests:
       cpu: 100m
