@@ -55,7 +55,7 @@ api-gateway:
   replicaCount: 1
   image:
     acrLoginServer: aegistestacr.azurecr.io
-    tag: "sha-09ba625"
+    tag: "sha-e81e175"
   resources:
     requests:
       cpu: 100m
