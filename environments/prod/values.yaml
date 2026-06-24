@@ -187,7 +187,7 @@ image-analysis-agent:
   replicaCount: 1
   image:
     acrLoginServer: aegistestacr.azurecr.io
-    tag: "latest"
+    tag: "v0.2.2"
   resources:
     requests:
       cpu: 100m
