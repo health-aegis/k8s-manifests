@@ -159,7 +159,7 @@ image-analysis-agent:
   replicaCount: 1
   image:
     acrLoginServer: aegistestacr.azurecr.io
-    tag: "sha-b62c9d8"
+    tag: "sha-e81e175"
   resources:
     requests:
       cpu: 100m
