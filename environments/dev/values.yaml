@@ -191,7 +191,7 @@ notification-worker:
   replicaCount: 1
   image:
     acrLoginServer: aegistestacr.azurecr.io
-    tag: "sha-ce5b762"
+    tag: "sha-6956266"
   resources:
     requests:
       cpu: 100m
