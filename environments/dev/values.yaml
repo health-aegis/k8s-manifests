@@ -213,7 +213,7 @@ client:
   replicaCount: 1
   image:
     acrLoginServer: aegistestacr.azurecr.io
-    tag: "sha-7f07303"
+    tag: "sha-b62c9d8"
   resources:
     requests:
       cpu: 100m
