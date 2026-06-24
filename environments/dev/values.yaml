@@ -127,7 +127,7 @@ diagnostic-agent-service:
   replicaCount: 1
   image:
     acrLoginServer: aegistestacr.azurecr.io
-    tag: "sha-c642e1d"
+    tag: "sha-77cc515"
   resources:
     requests:
       cpu: 100m
