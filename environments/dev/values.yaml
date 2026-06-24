@@ -95,7 +95,7 @@ ai-service:
   replicaCount: 1
   image:
     acrLoginServer: aegistestacr.azurecr.io
-    tag: "sha-e9e2cc8"
+    tag: "sha-77cc515"
   resources:
     requests:
       cpu: 100m
